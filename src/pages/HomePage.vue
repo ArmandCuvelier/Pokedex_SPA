@@ -1,5 +1,18 @@
 <template>
   <div class="container">
-    <NEmpty description="Page d'accueil à implémenter (tickets 2 et 3)" />
+    <DeckList />
   </div>
 </template>
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+import DeckList from '@/components/DeckList.vue'
+
+export default defineComponent({
+  name: 'HomeView',
+  components: {
+    DeckList,
+  },
+})
+</script>
