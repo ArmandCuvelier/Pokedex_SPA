@@ -23,7 +23,7 @@ const router = createRouter({
   routes,
 })
 
-router.beforeEach((to) => {
+router.beforeEach((to): string | { path: string } | undefined => {
   const auth = useAuthStore()
 
   if (to.meta.requiresAuth && !auth.isAuthenticated) {
@@ -33,6 +33,8 @@ router.beforeEach((to) => {
   if (to.meta.guest && auth.isAuthenticated) {
     return { path: ROUTES.HOME }
   }
+
+  return undefined
 })
 
 export default router
