@@ -42,7 +42,6 @@ const deckCards = computed(() => {
 })
 
 const handleEdit = () => {
-  // On utilise le chemin car le name n'est pas défini dans ton router.ts
   router.push(`/decks/${deckId.value}/edit`)
 }
 
