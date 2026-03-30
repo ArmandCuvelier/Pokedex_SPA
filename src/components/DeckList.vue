@@ -1,15 +1,25 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 import DeckCard from '@/components/DeckCard.vue'
+import { useApi } from '@/composables/useApi'
 import { ROUTES } from '@/router'
 import { useDeckStore } from '@/stores/deck.store'
+import type { Card } from '@/types'
 
 const router = useRouter()
 const deckStore = useDeckStore()
+const { getCards } = useApi()
 
-onMounted(() => deckStore.fetchDecks())
+const cards = ref([] as Card[])
+
+onMounted(async () => {
+  await Promise.all([
+    deckStore.fetchDecks(),
+    getCards().then((c) => (cards.value = c)),
+  ])
+})
 </script>
 
 <template>
@@ -34,7 +44,12 @@ onMounted(() => deckStore.fetchDecks())
     </div>
 
     <div v-else class="deck-list">
-      <DeckCard v-for="deck in deckStore.decks" :key="deck.id" :deck="deck" />
+      <DeckCard
+        v-for="deck in deckStore.decks"
+        :key="deck.id"
+        :deck="deck"
+        :cards="cards"
+      />
     </div>
   </div>
 </template>
