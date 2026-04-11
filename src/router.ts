@@ -5,6 +5,7 @@ import { useAuthStore } from '@/stores/auth.store'
 import DeckDetail from './pages/DeckDetailPage.vue'
 import DeckEdit from './pages/DeckEditPage.vue'
 import DeckNew from './pages/DeckNewPage.vue'
+import GamePage from './pages/GamePage.vue'
 import HomePage from './pages/HomePage.vue'
 import LoginPage from './pages/LoginPage.vue'
 import SignUpPage from './pages/SignUpPage.vue'
@@ -16,6 +17,7 @@ export const ROUTES = {
   DECK_DETAIL: '/decks/:id',
   DECK_EDIT: '/decks/:id/edit',
   DECK_NEW: '/decks/new',
+  GAME: '/game',
 } as const
 
 const routes = [
@@ -55,7 +57,14 @@ const routes = [
     name: 'DeckNew',
     meta: { requiresAuth: true },
   },
+  {
+    path: ROUTES.GAME,
+    component: GamePage,
+    name: 'Game',
+    meta: { requiresAuth: true },
+  },
 ]
+
 const router = createRouter({
   history: createWebHistory(),
   routes,
